@@ -48,3 +48,6 @@ captures/
 
 ### Gradle ###
 !gradle/wrapper/gradle-wrapper.jar
+
+### Recult Dirs ###
+test_results/
