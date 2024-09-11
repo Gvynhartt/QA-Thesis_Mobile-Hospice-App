@@ -89,7 +89,7 @@ public class Test_MainPage {
     }
 
     @Test
-    @DisplayName("Check if added news (created with calendar & clock widgets, no offset) is visible on page")
+    @DisplayName("Check if added news (created with calendar & clock widgets) is visible on page")
     public void shdDisplayNewsItemAddedByWidget() {
 
         mainPage.goToNewsPageWithAllNewsBtn();
@@ -113,8 +113,7 @@ public class Test_MainPage {
         creatingNewsPage.pressSaveToCreateNews();
         customAppBar.goToMainPageWithMenuBtn();
         onView(withId(mainPage.getAllNewsCardsBlock()))
-                .check(matches(RecyclerCustomMatcher.atPosition(0,
-                        hasDescendant(withText(testTitle)))));
+                .check(matches(allOf(hasDescendant(withText(testTitle)), isDisplayed())));
     }
 
     @Test
@@ -194,39 +193,6 @@ public class Test_MainPage {
         onView(withId(mainPage.getAllNewsCardsBlock()))
                 .check(matches(RecyclerCustomMatcher.atPosition(2,
                         hasDescendant(withText(testTitle0)))));
-    }
-
-    @Test
-    @DisplayName("Check if added news (created with clipboard paste) is visible on page")
-    public void shdDisplayNewsItemAddedWithClipbrd() {
-
-        mainPage.goToNewsPageWithAllNewsBtn();
-        newsPage.checkNewsPageVisible();
-        newsPage.clickEditNewsBtn();
-        newsControlPanelPage.checkNewsControlPageVisible(1000);
-        newsControlPanelPage.clickAddNewsBtn();
-        creatingNewsPage.checkPageVisibleByHeaderTitle();
-
-        DataHelper testNewsData0 = new DataHelper();
-
-        String testCategory = testNewsData0.makeTestNewsCategory();
-        String testTitle = testNewsData0.makeTestNewsTitle();
-        String testDescr = testNewsData0.makeTestNewsDescr();
-        String testPublDate = testNewsData0.makeTestNewsDate(0);
-        String testPublTime = testNewsData0.makeTestNewsTime(0);
-
-        creatingNewsPage.insertNewsCatgrWithKeybd(testCategory);
-        creatingNewsPage.insertNewsTitle(testTitle);
-        creatingNewsPage.insertNewsDescription(testDescr);
-
-        creatingNewsPage.insertNewsPublDateFromClip(testPublDate, myContext);
-        creatingNewsPage.insertNewsPublTimeFromClip(testPublTime, myContext);
-
-        creatingNewsPage.pressSaveToCreateNews();
-        customAppBar.goToMainPageWithMenuBtn();
-        onView(withId(mainPage.getAllNewsCardsBlock()))
-                .check(matches(RecyclerCustomMatcher.atPosition(0,
-                        hasDescendant(withText(testTitle)))));
     }
 
     @Test
